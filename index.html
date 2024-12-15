@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Variance and Standard Deviation Calculator</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            text-align: center;
+            margin-top: 50px;
+        }
+        input, button {
+            margin: 10px;
+            padding: 10px;
+            font-size: 16px;
+        }
+        .result {
+            margin-top: 20px;
+            font-size: 18px;
+            font-weight: bold;
+        }
+    </style>
+</head>
+<body>
+    <h1>Variance and Standard Deviation Calculator</h1>
+    <p>Enter numbers separated by commas (e.g., 1,2,3,4):</p>
+    <input type="text" id="numbers" placeholder="Enter numbers">
+    <button onclick="calculate()">Calculate</button>
+
+    <div class="result">
+        <p id="mean">Mean: </p>
+        <p id="variance">Variance: </p>
+        <p id="stddev">Standard Deviation: </p>
+    </div>
+
+    <script>
+        function calculate() {
+            const input = document.getElementById('numbers').value;
+            const numbers = input.split(',').map(num => parseFloat(num.trim()));
+
+            if (numbers.some(isNaN)) {
+                alert('Please enter valid numbers separated by commas.');
+                return;
+            }
+
+            const mean = numbers.reduce((sum, num) => sum + num, 0) / numbers.length;
+            const variance = numbers.reduce((sum, num) => sum + Math.pow(num - mean, 2), 0) / (numbers.length - 1);
+            const stddev = Math.sqrt(variance);
+
+            document.getElementById('mean').textContent = `Mean: ${mean.toFixed(2)}`;
+            document.getElementById('variance').textContent = `Variance: ${variance.toFixed(2)}`;
+            document.getElementById('stddev').textContent = `Standard Deviation: ${stddev.toFixed(2)}`;
+        }
+    </script>
+</body>
+</html>
